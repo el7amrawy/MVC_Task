@@ -24,6 +24,8 @@ namespace MVCTask
 
             app.UseAuthorization();
 
+            //app.UseSession();
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
@@ -32,7 +34,15 @@ namespace MVCTask
 
         private static void ConfigureServices(IServiceCollection services)
         {
+            //services.AddRazorPages().AddSessionStateTempDataProvider();
+
             services.AddControllersWithViews();
+            //services.AddControllersWithViews().AddSessionStateTempDataProvider();
+
+            //services.AddSession(options => {
+            //    options.IdleTimeout=TimeSpan.FromMinutes(15);
+            //});
+
             services.AddSqlServer<Day6MvcdbContext>(connectionString: "name=ConnectionStrings:local");
         }
     }

@@ -23,6 +23,8 @@ namespace MVCTask.Controllers
         public IActionResult Create([Bind("EmployeeName,Job,Salary,Address,Email,DepartId")] Employee emp) {
             _db.Employees.Add(emp);
             _db.SaveChanges();
+            TempData["Toast_Action"] = "Add";
+            TempData["Toast_Message"] = $"Employee {emp.EmployeeName} has been added";
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]   
@@ -51,7 +53,9 @@ namespace MVCTask.Controllers
             }
                 _db.Employees.Update(emp);
                 _db.SaveChanges();
-                return RedirectToAction(nameof(Index));
+            TempData["Toast_Action"] = "Edit";
+            TempData["Toast_Message"] = $"Employee {emp.EmployeeName} has been edited";
+            return RedirectToAction(nameof(Index));
         }
         public IActionResult Delete(int id) {
             if(id == 0)
@@ -65,6 +69,8 @@ namespace MVCTask.Controllers
                 var emp = _db.Employees.FirstOrDefault(e => e.EmployeeId == id);
                 _db.Remove(emp);
                 _db.SaveChanges();
+                TempData["Toast_Action"] = "Delete";
+                TempData["Toast_Message"] = $"Employee {emp.EmployeeName} has been deleted";
                 return RedirectToAction(nameof(Index));
             }
             catch { 

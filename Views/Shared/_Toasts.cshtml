@@ -1,0 +1,12 @@
+﻿@if (TempData.ContainsKey("Toast_Message"))
+    {
+        <script>
+            $('.toast-body').text(`@TempData["Toast_Message"]`);
+            $('.toast-header > strong').text(`@TempData["Toast_Action"]`)
+            $('.toast').show()
+
+            setTimeout(() => {
+                $('.toast').hide()
+            }, 4000)
+        </script>
+    }

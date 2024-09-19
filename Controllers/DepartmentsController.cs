@@ -48,6 +48,8 @@ namespace MVCTask.Controllers
             }
             _db.Departments.Update(dep);
             _db.SaveChanges();
+            TempData["Toast_Action"] = "Edit";
+            TempData["Toast_Message"] = $"Department {dep.DepartmentName} has been edited";
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Delete(int id) {
@@ -59,8 +61,11 @@ namespace MVCTask.Controllers
             {
                 return NotFound();
             }
-            _db.Departments.Remove(_db.Departments.FirstOrDefault(d=>d.DepartmentId==id));
+            var dep = _db.Departments.FirstOrDefault(d => d.DepartmentId == id);
+            _db.Departments.Remove(dep);
             _db.SaveChanges();
+            TempData["Toast_Action"] = "Delete";
+            TempData["Toast_Message"] = $"Department {dep.DepartmentName} has been deleted";
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Create() {
@@ -72,6 +77,8 @@ namespace MVCTask.Controllers
             {
                 _db.Departments.Add(dep);
                 _db.SaveChanges();
+                TempData["Toast_Action"] = "Add";
+                TempData["Toast_Message"] = $"Department {dep.DepartmentName} has been added";
                 return RedirectToAction(nameof(Index));
             }
             return View();
