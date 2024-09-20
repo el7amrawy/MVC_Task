@@ -39,9 +39,10 @@ namespace MVCTask
             services.AddControllersWithViews();
             //services.AddControllersWithViews().AddSessionStateTempDataProvider();
 
-            //services.AddSession(options => {
-            //    options.IdleTimeout=TimeSpan.FromMinutes(15);
-            //});
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(15);
+            });
 
             services.AddSqlServer<Day6MvcdbContext>(connectionString: "name=ConnectionStrings:local");
         }
