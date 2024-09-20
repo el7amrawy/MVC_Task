@@ -18,6 +18,7 @@ public partial class Employee
     [EmailAddress]
     public string? Email { get; set; }
     [ForeignKey(nameof(Depart))]
+    [Display(Name = "Department")]
     public int? DepartId { get; set; }
     [Display(Name ="Department")]
    

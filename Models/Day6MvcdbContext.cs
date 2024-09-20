@@ -6,7 +6,7 @@ namespace MVCTask.Models;
 
 public partial class Day6MvcdbContext : DbContext
 {
-    public Day6MvcdbContext(DbContextOptions options ):base(options) { }
+    public Day6MvcdbContext(DbContextOptions options) : base(options) { }
     public virtual DbSet<Department> Departments { get; set; }
 
     public virtual DbSet<Employee> Employees { get; set; }
@@ -34,6 +34,25 @@ public partial class Day6MvcdbContext : DbContext
             entity.HasOne(d => d.Depart).WithMany(p => p.Employees)
                 .HasForeignKey(d => d.DepartId)
                 .HasConstraintName("FK_Employees_Departments");
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(e => e.UserId).HasName("PK__users__CB9A1CFF6A5A4C18");
+
+            entity.ToTable("users");
+
+            entity.HasIndex(e => e.Username, "UQ__users__F3DBC572C4BBD607").IsUnique();
+
+            entity.Property(e => e.UserId).HasColumnName("userId");
+            entity.Property(e => e.Password)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("password");
+            entity.Property(e => e.Username)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("username");
         });
 
         OnModelCreatingPartial(modelBuilder);
